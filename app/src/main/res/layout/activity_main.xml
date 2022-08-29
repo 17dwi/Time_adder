@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextClock
+        android:id="@+id/txtClock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtList"
+        android:layout_centerHorizontal="true"
+        android:format12Hour="hh:mm:ss a"
+        android:format24Hour="HH:mm:ss"
+        android:paddingTop="5dp"
+        android:textSize="20dp" />
+
+    <!-- The EditTexts for entering times -->
+    <LinearLayout
+        android:id="@+id/layoutLinearTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtClock"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:id="@+id/edtHour"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:nextFocusRight="@id/edtMinute"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:text=":"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/edtMinute"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:nextFocusLeft="@id/edtHour"
+            android:nextFocusRight="@id/edtSecond"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:text=":"
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/edtSecond"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:nextFocusLeft="@id/edtMinute"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnMeridiem"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/layoutLinearTime"
+        android:layout_toRightOf="@+id/layoutLinearTime"
+        android:text="AM"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/txtList"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/txtCalc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/light_black"
+        android:hint="(No data entered)"
+        android:scrollbars="vertical"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+    <!-- for clear, add, remove buttons-->
+    <LinearLayout
+        android:id="@+id/layoutLinearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutLinearTime"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/btnAdd_text"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rgMilitary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutLinearButton"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbMeridiem"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="AM/PM"
+            android:textSize="15sp"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/rbMilitary"
+            android:layout_width="100dp"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:text="24 hr"
+            android:textAlignment="center" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtTotalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@id/txtCalc"
+        android:text="@string/txtFinal_text"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/txtCalc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTotalTime"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/txtCalc_text"
+        android:textSize="35dp" />
+
+
+
+
+</RelativeLayout>

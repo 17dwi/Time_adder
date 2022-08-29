@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Time Adder</string>
+    <string name="txtFinal_text">Total Time:</string>
+    <string name="btnAdd_text">Add Time</string>
+    <string name="txtCalc_text">00:00:00</string>
+
+</resources>
