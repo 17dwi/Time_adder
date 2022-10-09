@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +21,12 @@ import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAdd, btnMeridiem, btnClear, btnRemove;
+    private Button btnAdd, btnMeridiem, btnClear, btnRemove, btnManualAdd, btnCurrentAdd;
     private TextView txtList, txtCalc;
     private EditText edtHour, edtMinute, edtSecond;
     private RadioButton rbMeridiem;
     private TextClock txtClock;
+    private RelativeLayout layoutRelativeManual;
 
     private timeStampManipulator times;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         btnMeridiem = findViewById(R.id.btnMeridiem);
         btnClear = findViewById(R.id.btnClear);
         btnRemove = findViewById(R.id.btnRemove);
+        btnManualAdd = findViewById(R.id.btnManualAdd);
+        btnCurrentAdd = findViewById(R.id.btnCurrentAdd);
 
         txtList = findViewById(R.id.txtList);
         txtCalc = findViewById(R.id.txtCalc);
@@ -48,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         rbMeridiem = findViewById(R.id.rbMeridiem);
 
+        layoutRelativeManual = findViewById(R.id.layoutRelativeManual);
 
-//        times = new timeStampManipulator();
         loadData();
 
         txtList.setMovementMethod(new ScrollingMovementMethod());
@@ -159,6 +163,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnManualAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (layoutRelativeManual.getVisibility() == View.VISIBLE) {
+                    layoutRelativeManual.setVisibility(View.INVISIBLE);
+                } else {
+                    layoutRelativeManual.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        btnCurrentAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean switchback = false;
+                if (rbMeridiem.isChecked() && !txtClock.getText().subSequence(9, 11).equals(btnMeridiem.getText())) {
+                    switchback = true;
+                    switchBtnMeridiemText();
+                }
+                edtHour.setText(txtClock.getText().subSequence(0,2));
+                edtMinute.setText(txtClock.getText().subSequence(3, 5));
+                edtSecond.setText(txtClock.getText().subSequence(6, 8));
+
+                btnAdd.performClick();
+
+                if (switchback) {
+                    switchBtnMeridiemText();
+                }
+
+            }
+        });
+
         btnClear.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -185,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // My understanding is that "gson" is a way to convert a java object into a string,
+    // and this method just does all of the conversions all at once.
     public void saveData() {
         SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();

@@ -82,16 +82,16 @@ public class timeStampManipulator {
         return ret;
     }
 
-    public void updateTimeTotal() {
+    private void updateTimeTotal() {
         totalHour = 0;
         totalMinute = 0;
         totalSecond = 0;
-        int tempDifference = 0;
+        int tempDifference;
         ArrayList<timeStamp> sorted = getSorted();
 
-        for (int i = 0; i < log.size() - 1; i++) {
+        for (int i = 0; i < sorted.size() - 1; i++) {
             if (i % 2 == 0) {
-                tempDifference = sorted.get(i + 1).getTotalSeconds() - sorted.get(i).getTotalSeconds();
+                tempDifference = sorted.get(i + 1).getTotalTimeInSeconds() - sorted.get(i).getTotalTimeInSeconds();
                 totalHour += tempDifference / 3600;
                 tempDifference %= 3600;
                 totalMinute += tempDifference / 60;
@@ -99,6 +99,7 @@ public class timeStampManipulator {
                 totalSecond += tempDifference;
             }
         }
+
     }
 
     public String totalToString() {

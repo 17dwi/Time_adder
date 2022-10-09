@@ -132,7 +132,7 @@ public class timeStamp {
         return ret;
     }
 
-    public int getTotalSeconds() {
+    public int getTotalTimeInSeconds() {
         return hour * 3600 + minute * 60 + second;
     }
 }
