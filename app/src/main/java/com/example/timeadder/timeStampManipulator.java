@@ -100,6 +100,14 @@ public class timeStampManipulator {
             }
         }
 
+        if (totalMinute >= 60) {
+            totalMinute += totalSecond / 60;
+            totalSecond %= 60;
+
+            totalHour += totalMinute / 60;
+            totalMinute %= 60;
+        }
+
     }
 
     public String totalToString() {
