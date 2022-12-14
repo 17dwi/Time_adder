@@ -19,13 +19,15 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btnAdd, btnMeridiem, btnClear, btnRemove, btnManualAdd, btnCurrentAdd;
-    private TextView txtList, txtCalc;
+    private TextView txtList, txtCalc, txtTest;
     private EditText edtHour, edtMinute, edtSecond;
     private RadioButton rbMeridiem;
-    private TextClock txtClock;
     private RelativeLayout layoutRelativeManual;
 
     private timeStampManipulator times;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         txtList = findViewById(R.id.txtList);
         txtCalc = findViewById(R.id.txtCalc);
-        txtClock = findViewById(R.id.txtClock);
+        txtTest = findViewById(R.id.txtTest);
 
         edtHour = findViewById(R.id.edtHour);
         edtMinute = findViewById(R.id.edtMinute);
@@ -61,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Checks if the whole LayoutLinearTime is empty
                 if (!(edtHour.getText().toString().equals("") && edtMinute.getText().toString().equals("") && edtSecond.getText().toString().equals(""))) {
+                    // Adds "00" to empty spaces
                     if (edtHour.getText().toString().equals("")) {
                         edtHour.setText("00");
                     }
@@ -74,14 +78,17 @@ public class MainActivity extends AppCompatActivity {
                         edtSecond.setText("00");
                     }
 
+                    // Formats to 24 hour time
                     if (Integer.parseInt(edtHour.getText().toString()) < 12 && btnMeridiem.getVisibility() == View.VISIBLE && btnMeridiem.getText().toString().equals("PM")) {
                         times.add(new timeStamp(Integer.parseInt(edtHour.getText().toString()) + 12, Integer.parseInt(edtMinute.getText().toString()), Integer.parseInt(edtSecond.getText().toString())));
+                    // If already in military time, adds to 'times' array
                     } else {
                         times.add(new timeStamp(Integer.parseInt(edtHour.getText().toString()), Integer.parseInt(edtMinute.getText().toString()), Integer.parseInt(edtSecond.getText().toString())));
                     }
-
+                    // Displays new time
                     updateTxtListAndCalc();
 
+                    // Clears layoutLinearTime
                     edtHour.getText().clear();
                     edtMinute.getText().clear();
                     edtSecond.getText().clear();
@@ -114,12 +121,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    txtClock.setFormat24Hour(null);
-                    txtClock.setFormat12Hour("hh:mm:ss a");
                     btnMeridiem.setVisibility(View.VISIBLE);
                 } else {
-                    txtClock.setFormat12Hour(null);
-                    txtClock.setFormat24Hour("HH:mm:ss");
                     btnMeridiem.setVisibility(View.INVISIBLE);
                 }
                 txtList.setText(times.sortedToString(rbMeridiem.isChecked()));
@@ -130,36 +133,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 switchBtnMeridiemText();
-            }
-        });
-
-        txtClock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Here's how I checked how txtClock.getText() works.
-
-//                String temp = txtClock.getText().toString();
-//                String temp2 = "";
-//                for (int i = 0; i < temp.length(); i++) {
-//                    temp2 += "[" + temp.substring(i,i+1) + "] ";
-//                }
-//                txtCalc.setText(temp2);
-                boolean switchback = false;
-
-                if (rbMeridiem.isChecked() && !txtClock.getText().subSequence(9, 11).equals(btnMeridiem.getText())) {
-                    switchback = true;
-                    switchBtnMeridiemText();
-                }
-                edtHour.setText(txtClock.getText().subSequence(0,2));
-                edtMinute.setText(txtClock.getText().subSequence(3, 5));
-                edtSecond.setText(txtClock.getText().subSequence(6, 8));
-
-                btnAdd.performClick();
-
-                if (switchback) {
-                    switchBtnMeridiemText();
-                }
             }
         });
 
@@ -178,13 +151,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean switchback = false;
-                if (rbMeridiem.isChecked() && !txtClock.getText().subSequence(9, 11).equals(btnMeridiem.getText())) {
+                if (rbMeridiem.isChecked()) {
                     switchback = true;
                     switchBtnMeridiemText();
                 }
-                edtHour.setText(txtClock.getText().subSequence(0,2));
-                edtMinute.setText(txtClock.getText().subSequence(3, 5));
-                edtSecond.setText(txtClock.getText().subSequence(6, 8));
+                Calendar curTime = Calendar.getInstance();
+
+                edtHour.setText(Integer.toString(curTime.get(Calendar.HOUR_OF_DAY)));
+                edtMinute.setText(Integer.toString(curTime.get(Calendar.MINUTE)));
+                edtSecond.setText(Integer.toString(curTime.get(Calendar.SECOND)));
 
                 btnAdd.performClick();
 

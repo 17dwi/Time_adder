@@ -217,17 +217,9 @@
 
     </RelativeLayout>
 
-
-    <TextClock
-        android:id="@+id/txtClock"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:format12Hour="hh:mm:ss a"
-        android:format24Hour="HH:mm:ss"
-        android:paddingTop="5dp"
-        android:textSize="20dp" />
+        android:id="@+id/txtTest"/>
 
 </RelativeLayout>
