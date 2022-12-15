@@ -3,5 +3,16 @@
     <string name="txtFinal_text">Total Time:</string>
     <string name="btnAdd_text">Add Time</string>
     <string name="txtCalc_text">00:00:00</string>
+    <string name="txtRestore">Restore</string>
+    <string name="rbMilitary">24 hr</string>
+    <string name="rbMeridiem">AM/PM</string>
+    <string name="btnMeridiem">AM</string>
+    <string name="edtHint">00</string>
+    <string name="edtColon">:</string>
+    <string name="btnRemove">Remove</string>
+    <string name="btnClear">Clear</string>
+    <string name="btnManualAdd">Add Time Manually</string>
+    <string name="btnCurrentAdd">Add Current Time</string>
+    <string name="txtListHint">{No data entered}</string>
 
 </resources>

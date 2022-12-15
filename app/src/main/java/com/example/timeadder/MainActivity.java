@@ -24,13 +24,20 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAdd, btnMeridiem, btnClear, btnRemove, btnManualAdd, btnCurrentAdd;
+    private Button btnAdd, btnMeridiem, btnClear, btnRemove, btnManualAdd, btnCurrentAdd, btnRestore;
     private TextView txtList, txtCalc, txtTest;
     private EditText edtHour, edtMinute, edtSecond;
-    private RadioButton rbMeridiem;
+    private RadioButton rbMeridiem, rbMilitary;
     private RelativeLayout layoutRelativeManual;
 
     private timeStampManipulator times;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String IS_MERIDIAN = "AM";
+    public static final String AM_PM = "btnMeridian";
+
+    private String AmOrPm;
+    private boolean isMeridian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btnRemove = findViewById(R.id.btnRemove);
         btnManualAdd = findViewById(R.id.btnManualAdd);
         btnCurrentAdd = findViewById(R.id.btnCurrentAdd);
+        btnRestore = findViewById(R.id.btnRestore);
 
         txtList = findViewById(R.id.txtList);
         txtCalc = findViewById(R.id.txtCalc);
@@ -53,10 +61,13 @@ public class MainActivity extends AppCompatActivity {
         edtSecond = findViewById(R.id.edtSecond);
 
         rbMeridiem = findViewById(R.id.rbMeridiem);
+        rbMilitary = findViewById(R.id.rbMilitary);
 
-        layoutRelativeManual = findViewById(R.id.layoutRelativeManual);
+        layoutRelativeManual = findViewById(R.id.layoutRelativeManualAdd);
 
         loadData();
+        loadPreferences();
+        updatePreferences();
 
         txtList.setMovementMethod(new ScrollingMovementMethod());
 
@@ -69,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     if (edtHour.getText().toString().equals("")) {
                         edtHour.setText("00");
                     }
+                    Toast.makeText(MainActivity.this, "Goes into", Toast.LENGTH_SHORT).show();
 
                     if (edtMinute.getText().toString().equals("")) {
                         edtMinute.setText("00");
@@ -123,9 +135,10 @@ public class MainActivity extends AppCompatActivity {
                 if (b) {
                     btnMeridiem.setVisibility(View.VISIBLE);
                 } else {
-                    btnMeridiem.setVisibility(View.INVISIBLE);
+                    btnMeridiem.setVisibility(View.GONE);
                 }
                 txtList.setText(times.sortedToString(rbMeridiem.isChecked()));
+                savePreferences();
             }
         });
 
@@ -133,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 switchBtnMeridiemText();
+                savePreferences();
             }
         });
 
@@ -175,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 times.clear();
                 updateTxtListAndCalc();
-                saveData();
+                savePreferences();
                 return false;
             }
         });
@@ -192,6 +206,16 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "No data to remove.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnRestore.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                times.restore();
+                updateTxtListAndCalc();
+                saveData();
+                return false;
             }
         });
     }
@@ -220,9 +244,37 @@ public class MainActivity extends AppCompatActivity {
         updateTxtListAndCalc();
     }
 
+    // 'Preferences' functions only save the radio group choice and the AM or PM on btnMeridiem
+    public void savePreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(IS_MERIDIAN, rbMeridiem.isChecked());
+        editor.putString(AM_PM, btnMeridiem.getText().toString());
+
+        editor.apply();
+    }
+
+    public void loadPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        isMeridian = sharedPreferences.getBoolean(IS_MERIDIAN, true);
+        AmOrPm = sharedPreferences.getString(AM_PM, "AM");
+
+    }
+
+    public void updatePreferences() {
+        btnMeridiem.setText(AmOrPm);
+        rbMeridiem.setChecked(isMeridian);
+        rbMilitary.setChecked(!isMeridian);
+
+        if (isMeridian) {
+            btnMeridiem.setVisibility(View.VISIBLE);
+        } else {
+            btnMeridiem.setVisibility(View.GONE);
+        }
+    }
+
     public void updateTxtListAndCalc() {
         txtList.setText(times.sortedToString(rbMeridiem.isChecked()));
-//        txtCalc.setText(times.getTimeTotal().formatCalculatedTime(times.getSorted()));
         txtCalc.setText(times.totalToString());
     }
 

@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#D6D6D6</color>
     <color name="light_black">#1E1E1E</color>
+    <color name="first">#5516CC</color>
+    <color name="second">#41119C</color>
+    <color name="third">#2F0C71</color>
 </resources>

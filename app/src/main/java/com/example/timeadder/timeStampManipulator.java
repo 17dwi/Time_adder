@@ -10,7 +10,7 @@ public class timeStampManipulator {
     // For what order they were entered
     private ArrayList<timeStamp> log = new ArrayList<>();
     // Potential clear() insurance
-    private ArrayList<timeStamp> prevous = new ArrayList<>();
+    private ArrayList<timeStamp> previous = new ArrayList<>();
 
     private int totalHour, totalMinute, totalSecond;
 
@@ -136,11 +136,15 @@ public class timeStampManipulator {
     }
 
     public void clear() {
-        prevous = new ArrayList<>(log);
+        previous = new ArrayList<>(log);
         log.clear();
         totalHour = 0;
         totalMinute = 0;
         totalSecond = 0;
+    }
+
+    public void restore() {
+        log = previous;
     }
 
 }

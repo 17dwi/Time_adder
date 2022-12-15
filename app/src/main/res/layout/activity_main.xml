@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:layout_alignLeft="@id/txtCalc"
         android:text="@string/txtFinal_text"
-        android:textSize="14dp" />
+        android:textSize="14sp" />
 
     <!-- Big clock utop the block -->
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="@string/txtCalc_text"
-        android:textSize="35dp" />
+        android:textSize="35sp" />
 
     <!-- Big textview that displays added times -->
     <TextView
@@ -39,10 +39,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="@color/light_black"
-        android:hint="(No data entered)"
+        android:hint="@string/txtListHint"
         android:scrollbars="vertical"
         android:textAlignment="center"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtAddType"
@@ -56,62 +56,66 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:orientation="vertical"
         android:layout_below="@+id/txtAddType"
-        android:id="@+id/layoutLinearType">
+        android:id="@+id/layoutLinearAddition">
 
         <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnManualAdd"
-            android:text="Manually"
-            android:textSize="15sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="8dp"
-            android:layout_below="@+id/txtAddType"/>
-
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:backgroundTint="@color/first"
+            android:textColor="@color/white"
+            android:layout_height="60dp"
             android:id="@+id/btnCurrentAdd"
-            android:text="Current"
-            android:textSize="15sp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/txtAddType"/>
+            android:text="@string/btnCurrentAdd"
+            android:textSize="15sp"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/second"
+            android:textColor="@color/white"
+            android:id="@+id/btnManualAdd"
+            android:text="@string/btnManualAdd"
+            android:textSize="15sp"/>
 
     </LinearLayout>
 
     <!-- for clear, remove buttons-->
     <LinearLayout
-        android:id="@+id/layoutLinearButton"
+        android:id="@+id/layoutLinearSubtract"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutLinearType"
+        android:layout_below="@+id/layoutLinearAddition"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp">
 
         <Button
             android:id="@+id/btnClear"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Clear"
+            android:layout_width="146dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/second"
+            android:textColor="@color/white"
+            android:text="@string/btnClear"
             android:layout_marginRight="8dp"
             android:textSize="15sp" />
 
         <Button
             android:id="@+id/btnRemove"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Remove"
+            android:layout_width="146dp"
+            android:backgroundTint="@color/second"
+            android:textColor="@color/white"
+            android:layout_height="50dp"
+            android:text="@string/btnRemove"
             android:textSize="15sp" />
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/layoutRelativeManual"
+        android:id="@+id/layoutRelativeManualAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_below="@+id/layoutLinearButton"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/layoutLinearSubtract"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible">
 
         <!-- The EditTexts for entering times -->
         <LinearLayout
@@ -124,7 +128,7 @@
                 android:id="@+id/edtHour"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:hint="00"
+                android:hint="@string/edtHint"
                 android:inputType="number"
                 android:maxLength="2"
                 android:nextFocusRight="@id/edtMinute"
@@ -133,15 +137,15 @@
             <TextView
                 android:layout_width="10dp"
                 android:layout_height="50dp"
-                android:text=":"
+                android:text="@string/edtColon"
                 android:textAlignment="center"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edtMinute"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:hint="00"
+                android:hint="@string/edtHint"
                 android:inputType="number"
                 android:maxLength="2"
                 android:nextFocusLeft="@id/edtHour"
@@ -151,15 +155,15 @@
             <TextView
                 android:layout_width="10dp"
                 android:layout_height="50dp"
-                android:text=":"
+                android:text="@string/edtColon"
                 android:textAlignment="center"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edtSecond"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:hint="00"
+                android:hint="@string/edtHint"
                 android:inputType="number"
                 android:maxLength="2"
                 android:nextFocusLeft="@id/edtMinute"
@@ -169,10 +173,12 @@
                 android:id="@+id/btnMeridiem"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="5sp"
+                android:backgroundTint="@color/third"
                 android:paddingBottom="5dp"
-                android:text="AM"
+                android:text="@string/btnMeridiem"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -185,16 +191,27 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:backgroundTint="@color/third"
             android:text="@string/btnAdd_text"
+            android:textColor="@color/white"
             android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutRelativeManualAdd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        >
 
         <!-- Type of input radio buttons -->
         <RadioGroup
-            android:id="@+id/rgMilitary"
+            android:id="@+id/rgTwelveOrTwentyFour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnAdd"
-            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -202,20 +219,29 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="AM/PM"
+                android:text="@string/rbMeridiem"
                 android:textAlignment="center"
                 android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/rbMilitary"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="24 hr"
-                android:textAlignment="center"
+                android:text="@string/rbMilitary"
                 android:textSize="15sp" />
         </RadioGroup>
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btnRestore"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/second"
+            android:textColor="@color/white"
+            android:layout_height="50dp"
+            android:text="@string/txtRestore"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="50dp"
