@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
-        android:layout_below="@+id/txtAddType"
+        android:layout_below="@+id/layoutRelativeManualAdd"
         android:id="@+id/layoutLinearAddition">
 
         <Button
@@ -113,7 +113,7 @@
         android:id="@+id/layoutRelativeManualAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutLinearSubtract"
+        android:layout_below="@+id/txtList"
         android:layout_centerHorizontal="true"
         android:visibility="invisible">
 
@@ -201,7 +201,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutRelativeManualAdd"
+        android:layout_below="@+id/layoutLinearSubtract"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         >
